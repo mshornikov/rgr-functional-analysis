@@ -92,7 +92,7 @@ class Matrix {
         }
         else  {
             for (var i = 0; i < this.numbers[0].length; i++) {
-                determinant += Math.pow((-1), i) * this.numbers[0][i] * this.get_minor(1, i).get_determinant();
+                determinant += Math.pow((-1), i) * this.numbers[0][i] * this.get_minor(1, i+1).get_determinant();
                 console.log("determinant = " + determinant);
             }
         }
@@ -101,10 +101,9 @@ class Matrix {
 }
 
 m = new Matrix([[3, -3, -5, 8], [-3, 2, 4, -6], [2, -5, -7, 5], [-4, 3, 5, -6]]);
-test = new Matrix([[1, 0, 0], [0, 0, 1], [0, 0, 1]]);
+test = new Matrix([[1, -2, 3], [4, 0, 6], [-7, 8, 9]]);
 m.printMatrix();
 document.write('<br>');
 test.printMatrix();
 document.write('<br>');
-test.get_minor(1, 1).printMatrix();
-document.write(test.get_determinant());
+document.write(m.get_determinant());
