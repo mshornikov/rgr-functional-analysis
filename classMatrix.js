@@ -1,33 +1,40 @@
 class Matrix {
     constructor(numbers) {
         this.numbers = numbers;
-        this.n = this.numbers.length;
-        this.m = this.numbers[0].length;
-        console.log(this.numbers[0]);
-        for (var i = 0; i < this.numbers.length; i++) {
-            if (this.numbers[i].length != this.m) {
-                console.log("Number of columns is different");
-            }
-        }
     } 
 
     get_n() {
-        return this.n;
+        var n = this.numbers.length;
+        return n;
     }
 
     get_m() {
-        return this.m;
+        var m = this.numbers[0].length;
+        for (var i = 0; i < this.get_n(); i++) {
+            if (this.numbers[i].length != m) {
+                console.log("Error: Number of columns is different");
+            }
+        }
+        return m;
     }
 
     get_dimensions() {
-        return [this.n, this.m];
+        return [this.get_n(), this.get_m()];
     }
 
     get_numbers() {
         return this.numbers;
     }
     
-    add_row( array = []) {      
+    get_symbol(x, y) {
+        return this.numbers[x - 1][y - 1];
+    }
+
+    set_symbol(s, x, y) {
+        this.numbers[x - 1][y - 1] = s;
+    }
+
+    add_row(array = []) {
         this.numbers.push(array);
     }
 
@@ -37,13 +44,19 @@ class Matrix {
         }
     }
 
-    del_row(serial_number = this.numbers.length - 1) {
+    del_row(serial_number = this.get_n() - 1) {
         this.numbers.splice(serial_number, 1);
     }
 
+    del_column(number = this.get_m()) {
+        for (var i = 0; i < this.get_n(); i++) {
+            this.numbers[i].splice(number - 1, 1);
+        } 
+    }
+
     printMatrix() {
-        for (var n = 0; n < this.n; n++) {
-            for (var m = 0; m < this.m; m++) {
+        for (var n = 0; n < this.get_n(); n++) {
+            for (var m = 0; m < this.get_m(); m++) {
                 document.write(" " + this.numbers[n][m] + " ");
             }
             document.write('<br>')
@@ -54,56 +67,123 @@ class Matrix {
         this.get_minor(x, y).printMatrix();
     }
 
-    get_minor(x, y) {
-        var row_minor = [];
-        // for (var s = 0; s < this.m - 1; s++) {
-        //     row_minor.push([]);
-        // }
-        // console.log(row_minor);
-        for (var n = 0; n < this.n; n++) {
-            row_minor.push([]);
-            for (var m = 0; m < this.m; m++) {   
-                // console.log('n = ' + n + " m = " + m);
-                // console.log(this.numbers[n][m]);
-                // console.log(row_minor);
-                if (m != y - 1 && n != x - 1) {
-                    row_minor[n].push(this.numbers[n][m]);
-                }
-            }
-        }
-
-        for (var i = 0; i <= row_minor.length; i++) {
-            if (row_minor[i] == 0) {
-                row_minor.splice(i, 1);
-                // console.log('0');
-            }
-        }
-        console.log(row_minor);
-        var minor = new Matrix(row_minor);
-        return minor;
+    printSymbol(x, y) {
+        document.write(this.get_symbol(x, y));
+        document.write('<br>')
     }
 
-    get_determinant() {
-        var determinant = 0;
-        console.log("determinant = " + determinant);
-        if (this.m == 2 & this.n == 2) {
-            determinant = this.numbers[0][0] * this.numbers[1][1] - this.numbers[1][0] * this.numbers[0][1];
-            console.log("determinant = " + determinant);
-        }
-        else  {
-            for (var i = 0; i < this.numbers[0].length; i++) {
-                determinant += Math.pow((-1), i) * this.numbers[0][i] * this.get_minor(1, i+1).get_determinant();
-                console.log("determinant = " + determinant);
+}
+
+function get_minor(matrix, x, y) {
+    var row_minor = [];
+
+    for (var n = 0; n < matrix.get_n(); n++) {
+        row_minor.push([]);
+        for (var m = 0; m < matrix.get_m(); m++) {   
+            if (m != y - 1 && n != x - 1) {
+                row_minor[n].push(matrix.get_numbers()[n][m]);
             }
         }
-        return determinant;
+    }
+
+    for (var i = 0; i <= row_minor.length; i++) {
+        if (row_minor[i] == 0) {
+            row_minor.splice(i, 1);
+        }
+    }
+
+    var minor = new Matrix(row_minor);
+    return minor;
+}
+
+function get_determinant(matrix, type = "column", number = 1) {
+    var determinant = 0;
+    if (matrix.get_m() == 2 & matrix.get_n() == 2) {
+        determinant = matrix.get_numbers()[0][0] * matrix.get_numbers()[1][1] - matrix.get_numbers()[1][0] * matrix.get_numbers()[0][1];
+    }
+    else  {
+        for (var i = 0; i < matrix.get_numbers()[0].length; i++) {
+            if (type == "row") {
+                determinant += Math.pow((-1), number - 1) * Math.pow((-1), i)* matrix.get_numbers()[number - 1][i] * get_determinant(get_minor(matrix, number, i+1));
+            }
+            if (type == "column") {
+                determinant += Math.pow((-1), number - 1) * Math.pow((-1), i)* matrix.get_numbers()[i][number - 1] * get_determinant(get_minor(matrix, i+1, number));
+            }
+        }
+    }
+    return determinant;
+}
+
+function add(matrix1, matrix2) {
+    
+    if (matrix1.get_dimensions()[0] != matrix2.get_dimensions()[0] || matrix1.get_dimensions()[1] != matrix2.get_dimensions()[1]){
+        console.log("Error: Matrices must be of the same dimension");
+        return -1;
+    }
+    else {
+        var sum = new Matrix([]);
+        for (var i = 1; i <= matrix1.get_n(); i++) {
+            sum.add_row([]);
+            for (var j = 1; j <= matrix1.get_m(); j++) {
+                sum.set_symbol(matrix1.get_symbol(i, j) + matrix2.get_symbol(i, j), i, j);
+            }
+        }
+        return sum;
     }
 }
 
+function sub(matrix1, matrix2) {
+    
+    if (matrix1.get_dimensions()[0] != matrix2.get_dimensions()[0] || matrix1.get_dimensions()[1] != matrix2.get_dimensions()[1]){
+        console.log("Error: Matrices must be of the same dimension");
+        return -1;
+    }
+    else {
+        var sum = new Matrix([]);
+        for (var i = 1; i <= matrix1.get_n(); i++) {
+            sum.add_row([]);
+            for (var j = 1; j <= matrix1.get_m(); j++) {
+                sum.set_symbol(matrix1.get_symbol(i, j) - matrix2.get_symbol(i, j), i, j);
+            }
+        }
+        return sum;
+    }
+}
+
+function multNum(matrix, num) {
+    var sum = new Matrix([]);
+    for (var i = 1; i <= matrix.get_n(); i++) {
+        sum.add_row([]);
+        for (var j = 1; j <= matrix.get_m(); j++) {
+            sum.set_symbol(matrix.get_symbol(i, j) * num, i, j);
+        }
+    }
+    return sum;
+}
+
+function mult(matrix1, matrix2) {
+}
+
+function degree(matrix1, degree = 2) {
+    
+}
+
+function inversed(matrix1) {
+
+}
+
+function div(matrix1, matrix2) {
+
+}
+
 m = new Matrix([[3, -3, -5, 8], [-3, 2, 4, -6], [2, -5, -7, 5], [-4, 3, 5, -6]]);
-test = new Matrix([[1, -2, 3], [4, 0, 6], [-7, 8, 9]]);
-m.printMatrix();
-document.write('<br>');
+test = new Matrix([[1, 2, 3], [9, 5, 4], [8, 6, 7]]);
 test.printMatrix();
-document.write('<br>');
-document.write(m.get_determinant());
+
+m1 = new Matrix([[1, 1], [3, 3]]);
+m2 = new Matrix([[1, 0], [0, 1]]);
+
+document.write("<br>");
+add(m1, m2).printMatrix();
+sub(m1, m2).printMatrix();
+multNum(m1, 10).printMatrix();
