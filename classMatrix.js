@@ -27,10 +27,20 @@ class Matrix {
     }
     
     get_symbol(x, y) {
-        return this.numbers[x - 1][y - 1];
+        if (x - 1 >= this.get_n() || y - 1 >= this.get_m() || x < 1 || y < 1 ){
+            console.log("Error: Index out of range");
+            return 'error';
+        }
+        else {
+            return this.numbers[x - 1][y - 1];
+        }
     }
 
     set_symbol(s, x, y) {
+        if (this.get_symbol(x, y) == "error") {
+            console.log("Error: Index is doesn't exist")
+            return "error";
+        }
         this.numbers[x - 1][y - 1] = s;
     }
 
@@ -71,7 +81,6 @@ class Matrix {
         document.write(this.get_symbol(x, y));
         document.write('<br>')
     }
-
 }
 
 function get_minor(matrix, x, y) {
@@ -162,6 +171,7 @@ function multNum(matrix, num) {
 }
 
 function mult(matrix1, matrix2) {
+
 }
 
 function degree(matrix1, degree = 2) {
@@ -180,10 +190,16 @@ m = new Matrix([[3, -3, -5, 8], [-3, 2, 4, -6], [2, -5, -7, 5], [-4, 3, 5, -6]])
 test = new Matrix([[1, 2, 3], [9, 5, 4], [8, 6, 7]]);
 test.printMatrix();
 
-m1 = new Matrix([[1, 1], [3, 3]]);
+m1 = new Matrix([[5, 6, 4], [3, 3, 2]]);
 m2 = new Matrix([[1, 0], [0, 1]]);
 
 document.write("<br>");
-add(m1, m2).printMatrix();
-sub(m1, m2).printMatrix();
-multNum(m1, 10).printMatrix();
+m1.printMatrix();
+document.write(m1.get_n() + "<br>");
+document.write(m1.get_m() + "<br>");
+document.write(m1.get_dimensions() + "<br>");
+document.write(m1.get_numbers() + "<br>");
+document.write(m1.get_symbol(1,1) + "<br>");
+document.write(m1.get_symbol(3,2) + "<br>");
+m1.printMatrix();
+m1.set_symbol(3, 3, 3);
