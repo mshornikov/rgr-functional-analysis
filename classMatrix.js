@@ -38,8 +38,7 @@ class Matrix {
 
     set_symbol(s, x, y) {
         if (this.get_symbol(x, y) == "error") {
-            console.log("Error: Index doesn't exist")
-            return "error";
+            this.numbers[x - 1].push(s);
         }
         this.numbers[x - 1][y - 1] = s;
     }
@@ -172,19 +171,18 @@ function multNum(matrix, num) {
 
 function mult(matrix1, matrix2) {
     if (matrix1.get_m() != matrix2.get_n()) {
-        console.log("Error");
-        return 'error';
+        console.log("Error: Matrices must be n*m & m*d");
+        return;
     }
-    let mul = new Matrix([[], [], [], []]);
+    let mul = new Matrix([]);
         
     for(let i = 1; i <= matrix1.get_n(); ++i) {
+        mul.add_row([]);
         for(let j = 1; j <= matrix2.get_m(); ++j) {
-            mul.add_row([]);
             var c = 0;
             for (let k = 1; k <= matrix1.get_m(); ++k) {
                 c += matrix1.get_symbol(i, k) * matrix2.get_symbol(k, j);
             }
-            console.log(c);
             mul.set_symbol(c, i, j);
         }
     }    
@@ -193,7 +191,7 @@ function mult(matrix1, matrix2) {
 }
 
 function degree(matrix1, degree = 2) {
-    
+
 }
 
 function inversed(matrix1) {
@@ -207,8 +205,8 @@ function div(matrix1, matrix2) {
 m = new Matrix([[3, -3, -5, 8], [-3, 2, 4, -6], [2, -5, -7, 5], [-4, 3, 5, -6]]);
 test = new Matrix([[1, 2, 3], [9, 5, 4], [8, 6, 7]]);
 
-m1 = new Matrix([[5, 6], [3, 3]]);
-m2 = new Matrix([[2, 3], [4, 1]]);
+m1 = new Matrix([[1, 3], [6, 5], [7, 2]]);
+m2 = new Matrix([[4, 5, -3, 9], [3, 7, 0, -11]]);
 
 document.write("<br>");
 mult(m1, m2).printMatrix();
