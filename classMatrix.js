@@ -38,7 +38,7 @@ class Matrix {
 
     set_symbol(s, x, y) {
         if (this.get_symbol(x, y) == "error") {
-            console.log("Error: Index is doesn't exist")
+            console.log("Error: Index doesn't exist")
             return "error";
         }
         this.numbers[x - 1][y - 1] = s;
@@ -171,7 +171,25 @@ function multNum(matrix, num) {
 }
 
 function mult(matrix1, matrix2) {
+    if (matrix1.get_m() != matrix2.get_n()) {
+        console.log("Error");
+        return 'error';
+    }
+    let mul = new Matrix([[], [], [], []]);
+        
+    for(let i = 1; i <= matrix1.get_n(); ++i) {
+        for(let j = 1; j <= matrix2.get_m(); ++j) {
+            mul.add_row([]);
+            var c = 0;
+            for (let k = 1; k <= matrix1.get_m(); ++k) {
+                c += matrix1.get_symbol(i, k) * matrix2.get_symbol(k, j);
+            }
+            console.log(c);
+            mul.set_symbol(c, i, j);
+        }
+    }    
 
+    return mul;
 }
 
 function degree(matrix1, degree = 2) {
@@ -188,18 +206,9 @@ function div(matrix1, matrix2) {
 
 m = new Matrix([[3, -3, -5, 8], [-3, 2, 4, -6], [2, -5, -7, 5], [-4, 3, 5, -6]]);
 test = new Matrix([[1, 2, 3], [9, 5, 4], [8, 6, 7]]);
-test.printMatrix();
 
-m1 = new Matrix([[5, 6, 4], [3, 3, 2]]);
-m2 = new Matrix([[1, 0], [0, 1]]);
+m1 = new Matrix([[5, 6], [3, 3]]);
+m2 = new Matrix([[2, 3], [4, 1]]);
 
 document.write("<br>");
-m1.printMatrix();
-document.write(m1.get_n() + "<br>");
-document.write(m1.get_m() + "<br>");
-document.write(m1.get_dimensions() + "<br>");
-document.write(m1.get_numbers() + "<br>");
-document.write(m1.get_symbol(1,1) + "<br>");
-document.write(m1.get_symbol(3,2) + "<br>");
-m1.printMatrix();
-m1.set_symbol(3, 3, 3);
+mult(m1, m2).printMatrix();
