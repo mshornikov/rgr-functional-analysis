@@ -210,4 +210,4 @@ m2 = new Matrix([[4, 6], [1, 2]]);
 
 document.write("<br>");
 mult(m1, m2).printMatrix();
-document.write("11");
+document.write("1");
