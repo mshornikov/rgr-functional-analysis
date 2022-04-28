@@ -21,8 +21,7 @@
     "url": "https://github.com/mshornikov/rgr-functional-analysis/issues"
   },
   "homepage": "https://github.com/mshornikov/rgr-functional-analysis#readme",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "live-server": "^1.1.0"
   }

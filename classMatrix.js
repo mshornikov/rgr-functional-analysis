@@ -3,30 +3,31 @@ class Matrix {
         this.numbers = numbers;
     } 
 
-    get_n() {
+    get_n() { // amount of rows
         var n = this.numbers.length;
         return n;
     }
 
-    get_m() {
+    get_m() { // amount of columns
         var m = this.numbers[0].length;
         for (var i = 0; i < this.get_n(); i++) {
             if (this.numbers[i].length != m) {
                 console.log("Error: Number of columns is different");
+                return;
             }
         }
         return m;
     }
 
-    get_dimensions() {
+    get_dimensions() { // [rows, columns]
         return [this.get_n(), this.get_m()];
     }
 
-    get_numbers() {
+    get_numbers() { // array of arrays if all numbers
         return this.numbers;
     }
     
-    get_symbol(x, y) {
+    get_symbol(x, y) { // get defined symbol
         if (x - 1 >= this.get_n() || y - 1 >= this.get_m() || x < 1 || y < 1 ){
             console.log("Error: Index out of range");
             return 'error';
@@ -36,34 +37,34 @@ class Matrix {
         }
     }
 
-    set_symbol(s, x, y) {
+    set_symbol(s, x, y) { // set defined symbol
         if (this.get_symbol(x, y) == "error") {
             this.numbers[x - 1].push(s);
         }
         this.numbers[x - 1][y - 1] = s;
     }
 
-    add_row(array = []) {
+    add_row(array = []) { // adding a row to the end
         this.numbers.push(array);
     }
 
-    add_column(array) {
+    add_column(array) { // adding a column to the end
         for (var i = 0; i < array.length; i++) {
             this.numbers[i].push(array[i]);
         }
     }
 
-    del_row(serial_number = this.get_n() - 1) {
-        this.numbers.splice(serial_number, 1);
+    del_row(serial_number = this.get_n()) { // delete defined row
+        this.numbers.splice(serial_number - 1, 1);
     }
 
-    del_column(number = this.get_m()) {
+    del_column(number = this.get_m()) { // delete defined column
         for (var i = 0; i < this.get_n(); i++) {
             this.numbers[i].splice(number - 1, 1);
         } 
     }
 
-    printMatrix() {
+    printMatrix() { // print matrix
         for (var n = 0; n < this.get_n(); n++) {
             for (var m = 0; m < this.get_m(); m++) {
                 document.write(" " + this.numbers[n][m] + " ");
@@ -72,11 +73,11 @@ class Matrix {
         }
     }
 
-    printMinor(x, y) {
+    printMinor(x, y) { // print defined minor
         this.get_minor(x, y).printMatrix();
     }
 
-    printSymbol(x, y) {
+    printSymbol(x, y) { // print defined symbol
         document.write(this.get_symbol(x, y));
         document.write('<br>')
     }
@@ -94,16 +95,20 @@ function get_minor(matrix, x, y) {
         }
     }
 
-    for (var i = 0; i <= row_minor.length; i++) {
-        if (row_minor[i] == 0) {
-            row_minor.splice(i, 1);
-        }
-    }
+    // for (var i = 0; i <= row_minor.length; i++) {
+    //     if (row_minor[i] == 0) {
+    //         row_minor.splice(i, 1);
+    //     }
+    // }
+
+    matrix.del_row(x);
+    matrix.del_column(y);
 
     var minor = new Matrix(row_minor);
-    return minor;
+    return matrix;
 }
 
+// Getting determinant
 function get_determinant(matrix, type = "column", number = 1) {
     var determinant = 0;
     if (matrix.get_m() == 2 & matrix.get_n() == 2) {
@@ -122,6 +127,7 @@ function get_determinant(matrix, type = "column", number = 1) {
     return determinant;
 }
 
+// Getting sum of two matrices
 function add(matrix1, matrix2) {
     
     if (matrix1.get_dimensions()[0] != matrix2.get_dimensions()[0] || matrix1.get_dimensions()[1] != matrix2.get_dimensions()[1]){
@@ -140,6 +146,7 @@ function add(matrix1, matrix2) {
     }
 }
 
+// Getting subtraction of two matrices
 function sub(matrix1, matrix2) {
     
     if (matrix1.get_dimensions()[0] != matrix2.get_dimensions()[0] || matrix1.get_dimensions()[1] != matrix2.get_dimensions()[1]){
@@ -158,6 +165,7 @@ function sub(matrix1, matrix2) {
     }
 }
 
+// Getting multiplication of number and matrix
 function multNum(matrix, num) {
     var sum = new Matrix([]);
     for (var i = 1; i <= matrix.get_n(); i++) {
@@ -169,6 +177,7 @@ function multNum(matrix, num) {
     return sum;
 }
 
+// Getting multiplication of two matrices
 function mult(matrix1, matrix2) {
     if (matrix1.get_m() != matrix2.get_n()) {
         console.log("Error: Matrices must be n*m & m*d");
@@ -190,24 +199,26 @@ function mult(matrix1, matrix2) {
     return mul;
 }
 
+// Getting degree of matrix in defined degree
 function degree(matrix1, degree = 2) {
 
 }
 
+// Getting inverse matrix
 function inverse(matrix1) {
 
 }
 
+// Getting division of two matrices
 function div(matrix1, matrix2) {
 
 }
 
-m = new Matrix([[3, -3, -5, 8], [-3, 2, 4, -6], [2, -5, -7, 5], [-4, 3, 5, -6]]);
+m = new Matrix([[3, -3, -5, 8], [-3, 2, 4, -6], [2, -5, -7, 5]]);
 test = new Matrix([[1, 2, 3], [9, 5, 4], [8, 6, 7]]);
 
 m1 = new Matrix([[1, 3], [6, 5]]);
 m2 = new Matrix([[4, 6], [1, 2]]);
 
 document.write("<br>");
-mult(m1, m2).printMatrix();
-document.write("1");
+document.write(m.get_dimensions());
