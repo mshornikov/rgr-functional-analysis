@@ -1,0 +1,24 @@
+{
+  "name": "rgr-functional-analysis",
+  "version": "1.0.0",
+  "description": "Расчётно-графическая работа по дисциплине \"Функциональный анализ\"",
+  "main": "classMatrix.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server" : "http-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mshornikov/rgr-functional-analysis.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mshornikov/rgr-functional-analysis/issues"
+  },
+  "homepage": "https://github.com/mshornikov/rgr-functional-analysis#readme",
+  "dependencies": {
+    "http-server": "^14.1.0"
+  }
+}
