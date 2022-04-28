@@ -11,8 +11,8 @@
     "type": "git",
     "url": "git+https://github.com/mshornikov/rgr-functional-analysis.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["javascript", "html", "css"],
+  "author": "Mikhail Shornikov",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/mshornikov/rgr-functional-analysis/issues"
