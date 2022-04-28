@@ -4,8 +4,7 @@
   "description": "Расчётно-графическая работа по дисциплине \"Функциональный анализ\"",
   "main": "classMatrix.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "http-server"
+    "server": "live-server"
   },
   "repository": {
     "type": "git",
