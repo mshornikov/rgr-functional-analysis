@@ -9,7 +9,6 @@ class Matrix {
         }
     } 
 
-<<<<<<< HEAD
     get_n() {
       return this.numbers.length;
     }
@@ -21,7 +20,6 @@ class Matrix {
     get_dimensions() {
         return [this.numbers.length, this.numbers[0].length];
 
-<<<<<<< HEAD
     isCorrectPosition(x, y) {
       return x > 0 && x <= this.get_n() && y > 0 && y <= this.get_m();
     }
@@ -36,7 +34,6 @@ class Matrix {
         }
     }
 
-<<<<<<< HEAD
     set_symbol(s, x, y) {
         if (isCorrectPosition(x, y)) {
             this.numbers[x - 1][y - 1] = s;
@@ -73,7 +70,6 @@ class Matrix {
         }
     }
 
-<<<<<<< HEAD
     printMinor(x, y) {
         get_minor(x, y).printMatrix();
     }
@@ -195,9 +191,7 @@ function mult(matrix1, matrix2) {
     return mul;
 }
 
-<<<<<<< HEAD
 function pow(matrix1, degree = 2) {
-  
 }
 
 // Getting inverse matrix
@@ -216,7 +210,5 @@ test = new Matrix([[1, 2, 3], [9, 5, 4], [8, 6, 7]]);
 m1 = new Matrix([[1, 3], [6, 5]]);
 m2 = new Matrix([[4, 6], [1, 2]]);
 
-<<<<<<< HEAD
 document.write("lol");
-document.write(m1.get_symbol(1, 2));
-=======
+document.write(m1.get_symbol(1,1);
