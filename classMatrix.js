@@ -9,7 +9,6 @@ class Matrix {
         }
     } 
 
-<<<<<<< HEAD
     get_n() {
       return this.numbers.length;
     }
@@ -28,7 +27,6 @@ class Matrix {
     get_symbol(x, y) {
         if (this.isCorrectPosition(x, y)){
           return this.numbers[x - 1][y - 1];
-=======
         }
         else {
             console.log("Error: Index out of range");
@@ -36,11 +34,9 @@ class Matrix {
         }
     }
 
-<<<<<<< HEAD
     set_symbol(s, x, y) {
         if (isCorrectPosition(x, y)) {
             this.numbers[x - 1][y - 1] = s;
-=======
         }
         console.log("Error: Index out of range");
     }
@@ -74,10 +70,9 @@ class Matrix {
         }
     }
 
-<<<<<<< HEAD
     printMinor(x, y) {
         get_minor(x, y).printMatrix();
-=======
+
     printSymbol(x, y) { // print defined symbol
         document.write(this.get_symbol(x, y));
         document.write('<br>')
@@ -200,9 +195,8 @@ function mult(matrix1, matrix2) {
     return mul;
 }
 
-<<<<<<< HEAD
 function pow(matrix1, degree = 2) {
-=======
+
 }
 
 // Getting inverse matrix
@@ -221,7 +215,5 @@ test = new Matrix([[1, 2, 3], [9, 5, 4], [8, 6, 7]]);
 m1 = new Matrix([[1, 3], [6, 5]]);
 m2 = new Matrix([[4, 6], [1, 2]]);
 
-<<<<<<< HEAD
 document.write("lol");
 document.write(m1.get_symbol(1,1);
-=======
