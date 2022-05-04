@@ -72,7 +72,8 @@ class Matrix {
 
     printMinor(x, y) {
         get_minor(x, y).printMatrix();
-        
+    }    
+       
     printSymbol(x, y) { // print defined symbol
         document.write(this.get_symbol(x, y));
         document.write('<br>')
