@@ -4,6 +4,7 @@
   "description": "Расчётно-графическая работа по дисциплине \"Функциональный анализ\"",
   "main": "classMatrix.js",
   "scripts": {
+    "push": "git push",
     "server": "live-server --no-browser"
   },
   "repository": {
