@@ -19,6 +19,7 @@ class Matrix {
 
     get_dimensions() {
         return [this.numbers.length, this.numbers[0].length];
+    }
 
     isCorrectPosition(x, y) {
       return x > 0 && x <= this.get_n() && y > 0 && y <= this.get_m();
@@ -215,5 +216,5 @@ test = new Matrix([[1, 2, 3], [9, 5, 4], [8, 6, 7]]);
 m1 = new Matrix([[1, 3], [6, 5]]);
 m2 = new Matrix([[4, 6], [1, 2]]);
 
-document.write("aaaaa");
-document.write(m1.get_symbol(1,1);
+document.write("");
+document.write(m1.get_symbol(1,1));
