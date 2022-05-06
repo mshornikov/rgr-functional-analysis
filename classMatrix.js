@@ -1,47 +1,45 @@
 class Matrix {
     constructor(numbers) {
         this.numbers = numbers;
+        let m = this.numbers[0].length;
+        for (var i = 0; i < this.get_n(); i++) {
+          if (this.numbers[i].length != m) {
+              console.log("Error: Number of columns is different");
+          }
+        }
     } 
 
-    get_n() { // amount of rows
-        var n = this.numbers.length;
-        return n;
+    get_n() {
+      return this.numbers.length;
     }
 
-    get_m() { // amount of columns
-        var m = this.numbers[0].length;
-        for (var i = 0; i < this.get_n(); i++) {
-            if (this.numbers[i].length != m) {
-                console.log("Error: Number of columns is different");
-                return;
-            }
-        }
-        return m;
+    get_m() {
+        return this.numbers[0].length;
     }
 
-    get_dimensions() { // [rows, columns]
-        return [this.get_n(), this.get_m()];
+    get_dimensions() {
+        return [this.numbers.length, this.numbers[0].length];
     }
 
-    get_numbers() { // array of arrays if all numbers
-        return this.numbers;
+    isCorrectPosition(x, y) {
+      return x > 0 && x <= this.get_n() && y > 0 && y <= this.get_m();
     }
     
-    get_symbol(x, y) { // get defined symbol
-        if (x - 1 >= this.get_n() || y - 1 >= this.get_m() || x < 1 || y < 1 ){
+    get_symbol(x, y) {
+        if (this.isCorrectPosition(x, y)){
+          return this.numbers[x - 1][y - 1];
+       }
+        else {
             console.log("Error: Index out of range");
             return 'error';
         }
-        else {
-            return this.numbers[x - 1][y - 1];
-        }
     }
-
-    set_symbol(s, x, y) { // set defined symbol
-        if (this.get_symbol(x, y) == "error") {
-            this.numbers[x - 1].push(s);
+    
+    set_symbol(s, x, y) {
+        if (isCorrectPosition(x, y)) {
+            this.numbers[x - 1][y - 1] = s;
         }
-        this.numbers[x - 1][y - 1] = s;
+        console.log("Error: Index out of range");
     }
 
     add_row(array = []) { // adding a row to the end
@@ -73,10 +71,9 @@ class Matrix {
         }
     }
 
-    printMinor(x, y) { // print defined minor
-        this.get_minor(x, y).printMatrix();
-    }
-
+    printMinor(x, y) {
+        get_minor(x, y).printMatrix();
+    }    
     printSymbol(x, y) { // print defined symbol
         document.write(this.get_symbol(x, y));
         document.write('<br>')
@@ -199,8 +196,7 @@ function mult(matrix1, matrix2) {
     return mul;
 }
 
-// Getting degree of matrix in defined degree
-function degree(matrix1, degree = 2) {
+function pow(matrix1, degree = 2) {
 
 }
 
@@ -220,5 +216,5 @@ test = new Matrix([[1, 2, 3], [9, 5, 4], [8, 6, 7]]);
 m1 = new Matrix([[1, 3], [6, 5]]);
 m2 = new Matrix([[4, 6], [1, 2]]);
 
-document.write("<br>");
-document.write(m.get_dimensions());
+document.write("");
+document.write(m1.get_symbol(1,1));
