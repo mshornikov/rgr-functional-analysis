@@ -3,7 +3,7 @@ class Matrix {
         this.array = array;
         let columns = this.array[0].length;
         for (let i = 0; i < this.getAmountOfColumns(); i++) {
-          if (this.array[i].length != m) {
+          if (this.array[i].length != columns) {
               console.log("Error: Number of columns is different");
           }
         }
@@ -17,7 +17,7 @@ class Matrix {
         return this.array[0].length;
     }
     
-    get array() {
+    getArray() {
         return this.array;
     }
     
@@ -116,7 +116,7 @@ function getDeterminant(matrix, type = "column", number = 1) {
         determinant = matrix.array[0][0] * matrix.array[1][1] - matrix.array[1][0] * matrix.array[0][1];
     }
     else  {
-        for (let i = 0; i < matrix.array[0].length; i++)   
+        for (let i = 0; i < matrix.array[0].length; i++)  {
             if (type == "row") {
                 determinant += Math.pow((-1), number - 1) * Math.pow((-1), i)* matrix.array[number - 1][i] * getDeterminant(getMinor(matrix, number, i+1));
             }
