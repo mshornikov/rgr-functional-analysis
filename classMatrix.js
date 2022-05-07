@@ -2,7 +2,7 @@ class Matrix {
     constructor(numbers) {
         this.numbers = numbers;
         let m = this.numbers[0].length;
-        for (var i = 0; i < this.get_n(); i++) {
+        for (let i = 0; i < this.get_n(); i++) {
           if (this.numbers[i].length != m) {
               console.log("Error: Number of columns is different");
           }
@@ -47,7 +47,7 @@ class Matrix {
     }
 
     add_column(array) { // adding a column to the end
-        for (var i = 0; i < array.length; i++) {
+        for (let i = 0; i < array.length; i++) {
             this.numbers[i].push(array[i]);
         }
     }
@@ -57,14 +57,14 @@ class Matrix {
     }
 
     del_column(number = this.get_m()) { // delete defined column
-        for (var i = 0; i < this.get_n(); i++) {
+        for (let i = 0; i < this.get_n(); i++) {
             this.numbers[i].splice(number - 1, 1);
         } 
     }
 
     printMatrix() { // print matrix
-        for (var n = 0; n < this.get_n(); n++) {
-            for (var m = 0; m < this.get_m(); m++) {
+        for (let n = 0; n < this.get_n(); n++) {
+            for (let m = 0; m < this.get_m(); m++) {
                 document.write(" " + this.numbers[n][m] + " ");
             }
             document.write('<br>')
@@ -81,18 +81,18 @@ class Matrix {
 }
 
 function get_minor(matrix, x, y) {
-    var row_minor = [];
+    let row_minor = [];
 
-    for (var n = 0; n < matrix.get_n(); n++) {
+    for (let n = 0; n < matrix.get_n(); n++) {
         row_minor.push([]);
-        for (var m = 0; m < matrix.get_m(); m++) {   
+        for (let m = 0; m < matrix.get_m(); m++) {   
             if (m != y - 1 && n != x - 1) {
                 row_minor[n].push(matrix.get_numbers()[n][m]);
             }
         }
     }
 
-    // for (var i = 0; i <= row_minor.length; i++) {
+    // for (let i = 0; i <= row_minor.length; i++) {
     //     if (row_minor[i] == 0) {
     //         row_minor.splice(i, 1);
     //     }
@@ -101,18 +101,18 @@ function get_minor(matrix, x, y) {
     matrix.del_row(x);
     matrix.del_column(y);
 
-    var minor = new Matrix(row_minor);
+    let minor = new Matrix(row_minor);
     return matrix;
 }
 
 // Getting determinant
 function get_determinant(matrix, type = "column", number = 1) {
-    var determinant = 0;
+    let determinant = 0;
     if (matrix.get_m() == 2 & matrix.get_n() == 2) {
         determinant = matrix.get_numbers()[0][0] * matrix.get_numbers()[1][1] - matrix.get_numbers()[1][0] * matrix.get_numbers()[0][1];
     }
     else  {
-        for (var i = 0; i < matrix.get_numbers()[0].length; i++) {
+        for (let i = 0; i < matrix.get_numbers()[0].length; i++) {
             if (type == "row") {
                 determinant += Math.pow((-1), number - 1) * Math.pow((-1), i)* matrix.get_numbers()[number - 1][i] * get_determinant(get_minor(matrix, number, i+1));
             }
@@ -132,10 +132,10 @@ function add(matrix1, matrix2) {
         return -1;
     }
     else {
-        var sum = new Matrix([]);
-        for (var i = 1; i <= matrix1.get_n(); i++) {
+        let sum = new Matrix([]);
+        for (let i = 1; i <= matrix1.get_n(); i++) {
             sum.add_row([]);
-            for (var j = 1; j <= matrix1.get_m(); j++) {
+            for (let j = 1; j <= matrix1.get_m(); j++) {
                 sum.set_symbol(matrix1.get_symbol(i, j) + matrix2.get_symbol(i, j), i, j);
             }
         }
@@ -151,10 +151,10 @@ function sub(matrix1, matrix2) {
         return -1;
     }
     else {
-        var sum = new Matrix([]);
-        for (var i = 1; i <= matrix1.get_n(); i++) {
+        let sum = new Matrix([]);
+        for (let i = 1; i <= matrix1.get_n(); i++) {
             sum.add_row([]);
-            for (var j = 1; j <= matrix1.get_m(); j++) {
+            for (let j = 1; j <= matrix1.get_m(); j++) {
                 sum.set_symbol(matrix1.get_symbol(i, j) - matrix2.get_symbol(i, j), i, j);
             }
         }
@@ -164,10 +164,10 @@ function sub(matrix1, matrix2) {
 
 // Getting multiplication of number and matrix
 function multNum(matrix, num) {
-    var sum = new Matrix([]);
-    for (var i = 1; i <= matrix.get_n(); i++) {
+    let sum = new Matrix([]);
+    for (let i = 1; i <= matrix.get_n(); i++) {
         sum.add_row([]);
-        for (var j = 1; j <= matrix.get_m(); j++) {
+        for (let j = 1; j <= matrix.get_m(); j++) {
             sum.set_symbol(matrix.get_symbol(i, j) * num, i, j);
         }
     }
@@ -185,7 +185,7 @@ function mult(matrix1, matrix2) {
     for(let i = 1; i <= matrix1.get_n(); ++i) {
         mul.add_row([]);
         for(let j = 1; j <= matrix2.get_m(); ++j) {
-            var c = 0;
+            let c = 0;
             for (let k = 1; k <= matrix1.get_m(); ++k) {
                 c += matrix1.get_symbol(i, k) * matrix2.get_symbol(k, j);
             }
