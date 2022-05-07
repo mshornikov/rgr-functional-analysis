@@ -9,11 +9,11 @@ class Matrix {
         }
     } 
 
-    getAmountOfColumns() { 
+    getAmountOfRows() { 
       return this.array.length;
     }
 
-    getAmountOfRows() {
+    getAmountOfColumns() {
         return this.array[0].length;
     }
     
@@ -220,4 +220,4 @@ test = new Matrix([[1, 2, 3], [9, 5, 4], [8, 6, 7]]);
 m1 = new Matrix([[1, 3], [6, 5]]);
 m2 = new Matrix([[4, 6], [1, 2]]);
 
-document.write("lol");
+document.write("");
