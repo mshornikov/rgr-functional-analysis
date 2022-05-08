@@ -37,8 +37,8 @@ class Matrix {
     // Getting symbol by it coordindates
     getSymbol(x, y) {
         if (this.isCorrectPosition(x, y)){
-          return this.array[x - 1][y - 1];
-       }
+             return this.array[x - 1][y - 1];
+        }
         else {
             console.log("Error: Index out of range");
             return 'error';
@@ -46,11 +46,16 @@ class Matrix {
     }
     
     // Setting symbol by it coordinates
-    setSymbol(s, x, y) {
-        if (isCorrectPosition(x, y)) {
-            this.array[x - 1][y - 1] = s;
+    setSymbol(newValue, x, y) {
+        if (this.isCorrectPosition(x, y)) {
+            this.array[x - 1][y - 1] = newValue;
+            return;
+        } 
+        else {
+            console.log("Error: Index out of range");
+            return "error";
         }
-        console.log("Error: Index out of range");
+        
     }
 
     // adding a row to the end
@@ -238,4 +243,4 @@ test = new Matrix([[1, 2, 3], [9, 5, 4], [8, 6, 7]]);
 m1 = new Matrix([[1, 3], [6, 5]]);
 m2 = new Matrix([[4, 6], [1, 2]]);
 
-document.write(m1.getSymbol(1,0));
+document.write();
