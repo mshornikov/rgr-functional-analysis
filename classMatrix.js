@@ -1,34 +1,40 @@
 class Matrix {
     constructor(array) {
-        this.array = array;
-        let columns = this.array[0].length;
-        for (let i = 0; i < this.getAmountOfColumns(); i++) {
+        this.array = array; //array of arrays of numbers that is a matrix
+        let columns = this.array[0].length; 
+        for (let i = 0; i < this.getNumberOfRows(); i++) { //cheking for missng columns in input
           if (this.array[i].length != columns) {
-              console.log("Error: Number of columns is different");
+              console.log("Error: Number of columns is different from row to row");
           }
         }
     } 
-
-    getAmountOfRows() { 
+    
+    // Getting number of rows
+    getNumberOfRows() { 
       return this.array.length;
     }
 
-    getAmountOfColumns() {
+    // Getting number of columns 
+    getNumberOfColumns() {
         return this.array[0].length;
     }
     
+    // Getting array thath contains matrix
     getArray() {
         return this.array;
     }
     
+    // Getting dimensions of Matrix [amount of rows, amount of columns]
     getDimensions() {
         return [this.array.length, this.array[0].length];
     }
 
+    // Checking for correct position input
     isCorrectPosition(x, y) {
-      return x > 0 && x <= this.getAmountOfColumns() && y > 0 && y <= this.getAmountOfRows();
+      return x > 0 && x <= this.getNumberOfColumns() && y > 0 && y <= this.getNumberOfRows();
     }
     
+    // Getting symbol by it coordindates
     getSymbol(x, y) {
         if (this.isCorrectPosition(x, y)){
           return this.array[x - 1][y - 1];
@@ -39,6 +45,7 @@ class Matrix {
         }
     }
     
+    // Setting symbol by it coordinates
     setSymbol(s, x, y) {
         if (isCorrectPosition(x, y)) {
             this.array[x - 1][y - 1] = s;
@@ -46,50 +53,59 @@ class Matrix {
         console.log("Error: Index out of range");
     }
 
-    addRow(row = []) { // adding a row to the end
+    // adding a row to the end
+    addRow(row = []) { 
         this.array.push(row);
     }
-
-    addColumn(column) { // adding a column to the end
+    
+    // adding a column to the end
+    addColumn(column) { 
         for (let i = 0; i < column.length; i++) {
             this.array[i].push(column[i]);
         }
     }
 
-    deleteRow(number = this.getAmountOfColumns()) { // delete defined row
+    // delete defined row
+    deleteRow(number = this.getNumberOfColumns()) { 
         this.array.splice(number - 1, 1);
     }
-
-    deleteColumn(number = this.getAmountOfRows()) { // delete defined column
-        for (let i = 0; i < this.getAmountOfColumns(); i++) {
+  
+    // delete defined column
+    deleteColumn(number = this.getNumberOfRows()) {
+        for (let i = 0; i < this.getNumberOfColumns(); i++) {
             this.array[i].splice(number - 1, 1);
         } 
     }
-
-    printMatrix() { // print matrix
-        for (let n = 0; n < this.getAmountOfColumns(); n++) {
-            for (let m = 0; m < this.getAmountOfRows(); m++) {
+    
+    // Printing the matrix
+    printMatrix() {
+        for (let n = 0; n < this.getNumberOfColumns(); n++) {
+            for (let m = 0; m < this.getNumberOfRows(); m++) {
                 document.write(" " + this.array[n][m] + " ");
             }
             document.write('<br>');
         }
     }
-
+    
+    // Printing minor of matrix by it coordinates
     printMinor(x, y) {
         getMinor(x, y).printMatrix();
     }    
-    printSymbol(x, y) { // print defined symbol
+    
+    // Printing symbol by it coordinates
+    printSymbol(x, y) {  
         document.write(this.getSymbol(x, y));
         document.write('<br>');
     }
 }
 
+// Getting minor of matrix by coordinates
 function getMinor(matrix, x, y) {
     let row_minor = [];
 
-    for (let n = 0; n < matrix.getAmountOfColumns(); n++) {
+    for (let n = 0; n < matrix.getNumberOfColumns(); n++) {
         row_minor.push([]);
-        for (let m = 0; m < matrix.getAmountOfRows(); m++) {   
+        for (let m = 0; m < matrix.getNumberOfRows(); m++) {   
             if (m != y - 1 && n != x - 1) {
                 row_minor[n].push(matrix.array[n][m]);
             }
@@ -112,7 +128,7 @@ function getMinor(matrix, x, y) {
 // Getting determinant
 function getDeterminant(matrix, type = "column", number = 1) {
     let determinant = 0;
-    if (matrix.getAmountOfRows() == 2 & matrix.getAmountOfColumns() == 2) {
+    if (matrix.getNumberOfRows() == 2 & matrix.getNumberOfColumns() == 2) {
         determinant = matrix.array[0][0] * matrix.array[1][1] - matrix.array[1][0] * matrix.array[0][1];
     }
     else  {
@@ -137,9 +153,9 @@ function add(matrix1, matrix2) {
     }
     else {
         let sum = new Matrix([]);
-        for (let i = 1; i <= matrix1.getAmountOfColumns(); i++) {
+        for (let i = 1; i <= matrix1.getNumberOfColumns(); i++) {
             sum.addRow([]);
-            for (let j = 1; j <= matrix1.getAmountOfRows(); j++) {
+            for (let j = 1; j <= matrix1.getNumberOfRows(); j++) {
                 sum.setSymbol(matrix1.getSymbol(i, j) + matrix2.getSymbol(i, j), i, j);
             }
         }
@@ -156,9 +172,9 @@ function sub(matrix1, matrix2) {
     }
     else {
         let sum = new Matrix([]);
-        for (let i = 1; i <= matrix1.getAmountOfColumns(); i++) {
+        for (let i = 1; i <= matrix1.getNumberOfColumns(); i++) {
             sum.addRow([]);
-            for (let j = 1; j <= matrix1.getAmountOfRows(); j++) {
+            for (let j = 1; j <= matrix1.getNumberOfRows(); j++) {
                 sum.setSymbol(matrix1.getSymbol(i, j) - matrix2.getSymbol(i, j), i, j);
             }
         }
@@ -169,9 +185,9 @@ function sub(matrix1, matrix2) {
 // Getting multiplication of number and matrix
 function multNum(matrix, num) {
     let sum = new Matrix([]);
-    for (let i = 1; i <= matrix.getAmountOfColumns(); i++) {
+    for (let i = 1; i <= matrix.getNumberOfColumns(); i++) {
         sum.addRow([]);
-        for (let j = 1; j <= matrix.getAmountOfRows(); j++) {
+        for (let j = 1; j <= matrix.getNumberOfRows(); j++) {
             sum.setSymbol(matrix.getSymbol(i, j) * num, i, j);
         }
     }
@@ -180,17 +196,17 @@ function multNum(matrix, num) {
 
 // Getting multiplication of two matrices
 function mult(matrix1, matrix2) {
-    if (matrix1.getAmountOfRows() != matrix2.getAmountOfColumns()) {
+    if (matrix1.getNumberOfRows() != matrix2.getNumberOfColumns()) {
         console.log("Error: Matrices must be n*m & m*d");
         return;
     }
     let mul = new Matrix([]);
         
-    for(let i = 1; i <= matrix1.getAmountOfColumns(); ++i) {
+    for(let i = 1; i <= matrix1.getNumberOfColumns(); ++i) {
         mul.addRow([]);
-        for(let j = 1; j <= matrix2.getAmountOfRows(); ++j) {
+        for(let j = 1; j <= matrix2.getNumberOfRows(); ++j) {
             let c = 0;
-            for (let k = 1; k <= matrix1.getAmountOfRows(); ++k) {
+            for (let k = 1; k <= matrix1.getNumberOfRows(); ++k) {
                 c += matrix1.getSymbol(i, k) * matrix2.getSymbol(k, j);
             }
             mul.setSymbol(c, i, j);
@@ -200,6 +216,7 @@ function mult(matrix1, matrix2) {
     return mul;
 }
 
+//Getting power of matrix (by default = 2)
 function pow(matrix1, degree = 2) {
 
 }
@@ -214,10 +231,11 @@ function div(matrix1, matrix2) {
 
 }
 
-m = new Matrix([[3, -3, -5, 8], [-3, 2, 4, -6], [2, -5, -7, 5]]);
+// Declarations
+m = new Matrix([[3, -3, -5, 8], [-3, 2, 4, -6], [2, -7, 4, 5]]);
 test = new Matrix([[1, 2, 3], [9, 5, 4], [8, 6, 7]]);
 
 m1 = new Matrix([[1, 3], [6, 5]]);
 m2 = new Matrix([[4, 6], [1, 2]]);
 
-document.write("");
+document.write(m1.getSymbol(1,0));
