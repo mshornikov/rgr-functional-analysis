@@ -1,17 +1,23 @@
 class Matrix {
     constructor(matrixArray) {
         this.matrixArray = matrixArray; //array of arrays of numbers that is a matrix
-        let columns = this.matrixArray[0].length; 
-        for (let i = 0; i < this.getNumberOfRows(); i++) { //cheking for missng columns in input
-          if (this.matrixArray[i].length != columns) {
-              console.log("Error: Number of columns is different from row to row");
-          }
-        }
+		this.checkAmountOfColumns();
     } 
     
+    //Checking for missing columns in input
+	checkAmountOfColumns() {
+        let columns = this.matrixArray[0].length; 
+        for (let i = 0; i < this.getNumberOfRows(); i++) { 
+            if (this.matrixArray[i].length != columns) {
+                console.log("Error: Number of columns is different from row to row");
+                return "error";
+            }
+        }
+    }
+
     // Getting number of rows
     getNumberOfRows() { 
-      return this.matrixArray.length;
+        return this.matrixArray.length;
     }
 
     // Getting number of columns 
@@ -19,7 +25,7 @@ class Matrix {
         return this.matrixArray[0].length;
     }
     
-    // Getting array thath contains matrix
+    // Getting array that contains matrix
     getArray() {
         return this.matrixArray;
     }
@@ -31,10 +37,10 @@ class Matrix {
 
     // Checking for correct position input
     isCorrectPosition(x, y) {
-      return x > 0 && x <= this.getNumberOfColumns() && y > 0 && y <= this.getNumberOfRows();
+        return x > 0 && x <= this.getNumberOfColumns() && y > 0 && y <= this.getNumberOfRows();
     }
     
-    // Getting symbol by it coordindates
+    // Getting symbol by it coordinates
     getSymbol(x, y) {
         if (this.isCorrectPosition(x, y)){
              return this.matrixArray[x - 1][y - 1];
@@ -61,6 +67,7 @@ class Matrix {
     // adding a row to the end
     addRow(row = []) { 
         this.matrixArray.push(row);
+        this.checkAmountOfColumns();
     }
     
     // adding a column to the end
@@ -68,6 +75,7 @@ class Matrix {
         for (let i = 0; i < column.length; i++) {
             this.matrixArray[i].push(column[i]);
         }
+        this.checkAmountOfColumns();
     }
 
     // delete defined row
@@ -84,8 +92,8 @@ class Matrix {
     
     // Printing the matrix
     printMatrix() {
-        for (let n = 0; n < this.getNumberOfColumns(); n++) {
-            for (let m = 0; m < this.getNumberOfRows(); m++) {
+        for (let n = 0; n < this.getNumberOfRows(); n++) {
+            for (let m = 0; m < this.getNumberOfColumns(); m++) {
                 document.write(" " + this.matrixArray[n][m] + " ");
             }
             document.write('<br>');
@@ -244,5 +252,5 @@ m1 = new Matrix([[1, 3], [6, 5]]);
 m2 = new Matrix([[4, 6], [1, 2]]);
 
 m1.printMatrix();
-m1.addColumn([1, 0]);
+m1.addColumn([1, 1, 1]);
 m1.printMatrix();
