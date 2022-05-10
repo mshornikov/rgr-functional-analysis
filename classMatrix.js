@@ -1,9 +1,9 @@
 class Matrix {
-    constructor(array) {
-        this.array = array; //array of arrays of numbers that is a matrix
-        let columns = this.array[0].length; 
+    constructor(matrixArray) {
+        this.matrixArray = matrixArray; //array of arrays of numbers that is a matrix
+        let columns = this.matrixArray[0].length; 
         for (let i = 0; i < this.getNumberOfRows(); i++) { //cheking for missng columns in input
-          if (this.array[i].length != columns) {
+          if (this.matrixArray[i].length != columns) {
               console.log("Error: Number of columns is different from row to row");
           }
         }
@@ -11,22 +11,22 @@ class Matrix {
     
     // Getting number of rows
     getNumberOfRows() { 
-      return this.array.length;
+      return this.matrixArray.length;
     }
 
     // Getting number of columns 
     getNumberOfColumns() {
-        return this.array[0].length;
+        return this.matrixArray[0].length;
     }
     
     // Getting array thath contains matrix
     getArray() {
-        return this.array;
+        return this.matrixArray;
     }
     
     // Getting dimensions of Matrix [amount of rows, amount of columns]
     getDimensions() {
-        return [this.array.length, this.array[0].length];
+        return [this.matrixArray.length, this.matrixArray[0].length];
     }
 
     // Checking for correct position input
@@ -37,7 +37,7 @@ class Matrix {
     // Getting symbol by it coordindates
     getSymbol(x, y) {
         if (this.isCorrectPosition(x, y)){
-             return this.array[x - 1][y - 1];
+             return this.matrixArray[x - 1][y - 1];
         }
         else {
             console.log("Error: Index out of range");
@@ -48,7 +48,7 @@ class Matrix {
     // Setting symbol by it coordinates
     setSymbol(newValue, x, y) {
         if (this.isCorrectPosition(x, y)) {
-            this.array[x - 1][y - 1] = newValue;
+            this.matrixArray[x - 1][y - 1] = newValue;
             return;
         } 
         else {
@@ -60,25 +60,25 @@ class Matrix {
 
     // adding a row to the end
     addRow(row = []) { 
-        this.array.push(row);
+        this.matrixArray.push(row);
     }
     
     // adding a column to the end
     addColumn(column) { 
         for (let i = 0; i < column.length; i++) {
-            this.array[i].push(column[i]);
+            this.matrixArray[i].push(column[i]);
         }
     }
 
     // delete defined row
     deleteRow(number = this.getNumberOfColumns()) { 
-        this.array.splice(number - 1, 1);
+        this.matrixArray.splice(number - 1, 1);
     }
   
     // delete defined column
     deleteColumn(number = this.getNumberOfRows()) {
         for (let i = 0; i < this.getNumberOfColumns(); i++) {
-            this.array[i].splice(number - 1, 1);
+            this.matrixArray[i].splice(number - 1, 1);
         } 
     }
     
@@ -86,7 +86,7 @@ class Matrix {
     printMatrix() {
         for (let n = 0; n < this.getNumberOfColumns(); n++) {
             for (let m = 0; m < this.getNumberOfRows(); m++) {
-                document.write(" " + this.array[n][m] + " ");
+                document.write(" " + this.matrixArray[n][m] + " ");
             }
             document.write('<br>');
         }
@@ -112,7 +112,7 @@ function getMinor(matrix, x, y) {
         row_minor.push([]);
         for (let m = 0; m < matrix.getNumberOfRows(); m++) {   
             if (m != y - 1 && n != x - 1) {
-                row_minor[n].push(matrix.array[n][m]);
+                row_minor[n].push(matrix.getArray()[n][m]);
             }
         }
     }
@@ -134,15 +134,15 @@ function getMinor(matrix, x, y) {
 function getDeterminant(matrix, type = "column", number = 1) {
     let determinant = 0;
     if (matrix.getNumberOfRows() == 2 & matrix.getNumberOfColumns() == 2) {
-        determinant = matrix.array[0][0] * matrix.array[1][1] - matrix.array[1][0] * matrix.array[0][1];
+        determinant = matrix.getArray()[0][0] * matrix.getArray()[1][1] - matrix.getArray()[1][0] * matrix.getArray()[0][1];
     }
     else  {
-        for (let i = 0; i < matrix.array[0].length; i++)  {
+        for (let i = 0; i < matrix.getArray()[0].length; i++)  {
             if (type == "row") {
-                determinant += Math.pow((-1), number - 1) * Math.pow((-1), i)* matrix.array[number - 1][i] * getDeterminant(getMinor(matrix, number, i+1));
+                determinant += Math.pow((-1), number - 1) * Math.pow((-1), i)* matrix.getArray()[number - 1][i] * getDeterminant(getMinor(matrix, number, i+1));
             }
             if (type == "column") {
-                determinant += Math.pow((-1), number - 1) * Math.pow((-1), i)* matrix.array()[i][number - 1] * getDeterminant(getMinor(matrix, i+1, number));
+                determinant += Math.pow((-1), number - 1) * Math.pow((-1), i)* matrix.getArray()[i][number - 1] * getDeterminant(getMinor(matrix, i+1, number));
             }
         }
     }
@@ -243,4 +243,6 @@ test = new Matrix([[1, 2, 3], [9, 5, 4], [8, 6, 7]]);
 m1 = new Matrix([[1, 3], [6, 5]]);
 m2 = new Matrix([[4, 6], [1, 2]]);
 
-document.write();
+m1.printMatrix();
+m1.addColumn([1, 0]);
+m1.printMatrix();
