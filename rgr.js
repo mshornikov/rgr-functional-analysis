@@ -1,0 +1,1 @@
+ documnent.write(document.getElementsByTagName("input")[0].value);

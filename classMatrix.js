@@ -1,18 +1,17 @@
 class Matrix {
     constructor(matrixArray) {
         this.matrixArray = matrixArray; //array of arrays of numbers that is a matrix
-		this.checkAmountOfColumns();
-    } 
-    
-    //Checking for missing columns in input
-	checkAmountOfColumns() {
         let columns = this.matrixArray[0].length; 
         for (let i = 0; i < this.getNumberOfRows(); i++) { 
             if (this.matrixArray[i].length != columns) {
                 console.log("Error: Number of columns is different from row to row");
-                return "error";
             }
         }
+    } 
+    
+    //Checking for missing columns in input
+	checkAmountOfColumns() {
+    
     }
 
     // Getting number of rows
@@ -254,3 +253,4 @@ m2 = new Matrix([[4, 6], [1, 2]]);
 m1.printMatrix();
 m1.addColumn([1, 1, 1]);
 m1.printMatrix();
+documnent.write(document.getElementsByTagName("input")[0].value);
